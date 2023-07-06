@@ -23,12 +23,12 @@ def single_roll(dice:int) -> Roll:
 def list_roll(dice:int, n:int):
     return [Roll(maximum=dice) for _ in range(n)]
 
-def up_list_roll(dice:int, n:int):
+def up_list_roll(dice:int, n:int, top:int=1):
     roll_list = list_roll(dice=dice, n=n)
-    maximum = max(roll_list, key = lambda x: x.current)
-    return maximum, roll_list
+    maximum = sorted(roll_list, key = lambda x: x.current, reverse=True)[:top]
+    return list(maximum), roll_list
 
-def down_list_roll(dice:int, n:int):
+def down_list_roll(dice:int, n:int, top:int=1):
     roll_list = list_roll(dice=dice, n=n)
-    minimum = min(roll_list, key = lambda x: x.current)
+    minimum = sorted(roll_list, key = lambda x: x.current)[:top]
     return minimum, roll_list
