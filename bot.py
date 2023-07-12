@@ -2,7 +2,7 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 
-from handlers import other_handlers
+from handlers import other_handlers, user_handlers
 from config_data.config import load_config
 
 # Init logger
@@ -22,6 +22,7 @@ async def main():
     dp = Dispatcher()
 
     # Register routers
+    dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
 
     # Start polling
