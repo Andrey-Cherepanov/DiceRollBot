@@ -1,4 +1,6 @@
 import random as r
+import re
+import string
 
 class Roll:
     def __init__(self, current=None, maximum=20):
@@ -32,3 +34,13 @@ def down_list_roll(dice:int, n:int, top:int=1):
     roll_list = list_roll(dice=dice, n=n)
     minimum = sorted(roll_list, key = lambda x: x.current)[:top]
     return minimum, roll_list
+
+def parse_roll_command(message_text: str):
+    """ parses a roll command text
+        calls the requred functions
+        returns string with rolls result"""
+
+    if not message_text[0].isdigit():
+        dice = int(re.match(r'[dD](\d+)', message_text).group(1))
+        if not any(c in message_text for c in '+-*/'):
+            return str(single_roll(dice))

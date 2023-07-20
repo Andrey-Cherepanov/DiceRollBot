@@ -3,8 +3,8 @@ from aiogram.types import Message
 from aiogram.filters import Command
 
 from filters.filters import IsRoll
-
 from lexicon.lexicon import LEXICON
+from services.rolling_scripts import parse_roll_command
 
 router: Router = Router()
 
@@ -20,4 +20,4 @@ async def process_help_command(message):
 
 @router.message(IsRoll())
 async def process_roll_command(message):
-    await message.answer('Вуху!')
+    await message.reply(parse_roll_command(message.text))
