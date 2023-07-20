@@ -6,4 +6,4 @@ class IsRoll(BaseFilter):
         pass
 
     async def __call__(self, message):
-        return bool(re.fullmatch(r'/?\d*[dD]\d+[ +\-*/kK\d]*', message.text))
+        return bool(re.fullmatch(r'/?\d*[dD]\d+[kK]?(\s?[+\-*/]\s?\d+)?', message.text))
