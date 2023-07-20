@@ -20,4 +20,4 @@ async def process_help_command(message):
 
 @router.message(IsRoll())
 async def process_roll_command(message):
-    await message.reply(parse_roll_command(message.text))
+    await message.reply(parse_roll_command(message.text.lstrip('/')))

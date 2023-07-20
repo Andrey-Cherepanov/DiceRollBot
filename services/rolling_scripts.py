@@ -35,7 +35,7 @@ def down_list_roll(dice:int, n:int, top:int=1):
     minimum = sorted(roll_list, key = lambda x: x.current)[:top]
     return minimum, roll_list
 
-def parse_roll_command(message_text: str):
+def parse_roll_command(message_text: str) -> str:
     """ parses a roll command text
         calls the requred functions
         returns string with rolls result"""
