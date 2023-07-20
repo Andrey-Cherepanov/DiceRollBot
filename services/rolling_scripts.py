@@ -44,3 +44,13 @@ def parse_roll_command(message_text: str) -> str:
         dice = int(re.match(r'[dD](\d+)', message_text).group(1))
         if not any(c in message_text for c in '+-*/'):
             return str(single_roll(dice))
+        else:
+            sign = re.search(r'[+\-*/]', message_text).group()
+            _, added = message_text.split(sign)
+            added = int(added.strip())
+            roll = single_roll(dice).to_tuple()
+            match sign:
+                case '+':
+                    return f'roll: {roll[0] + added}/{roll[1]+added} ({roll[0]}+{added})'
+                case _:
+                    return 'bad request'
