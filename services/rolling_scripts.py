@@ -52,5 +52,13 @@ def parse_roll_command(message_text: str) -> str:
             match sign:
                 case '+':
                     return f'roll: {roll[0] + added}/{roll[1]+added} ({roll[0]}+{added})'
+                case '-':
+                    if added > roll[1]:
+                        return f'error: {added} больше, чем {roll[1]})'
+                    if added > roll[0]:
+                        curr = 0
+                    else:
+                        curr = roll[0]- added
+                    return f'roll: {curr}/{roll[1]-added} ({roll[0]}-{added})'
                 case _:
                     return 'bad request'
