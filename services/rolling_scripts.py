@@ -60,5 +60,9 @@ def parse_roll_command(message_text: str) -> str:
                     else:
                         curr = roll[0]- added
                     return f'roll: {curr}/{roll[1]-added} ({roll[0]}-{added})'
+                case '*':
+                    return f'roll: {roll[0] * added}/{roll[1]*added} ({roll[0]}*{added})'
+                case '/':
+                    return f'roll: {round(roll[0] / added)}/{round(roll[1]/added)} ({roll[0]}/{added})'
                 case _:
                     return 'bad request'
