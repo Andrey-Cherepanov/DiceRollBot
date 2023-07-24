@@ -40,8 +40,9 @@ def parse_roll_command(message_text: str) -> str:
         calls the requred functions
         returns string with rolls result"""
 
+    dice = int(re.search(r'[dD](\d+)', message_text).group(1))
+
     if not message_text[0].isdigit():
-        dice = int(re.match(r'[dD](\d+)', message_text).group(1))
         if not any(c in message_text for c in '+-*/'):
             return str(single_roll(dice))
         else:
@@ -66,3 +67,10 @@ def parse_roll_command(message_text: str) -> str:
                     return f'roll: {round(roll[0] / added)}/{round(roll[1]/added)} ({roll[0]}/{added})'
                 case _:
                     return 'bad request'
+    else:
+        num = int(re.match(r'\d+', message_text).group())
+        if not 'k' in message_text.lower():
+            if not re.search(r'[+\-*/]', message_text):
+                rolls = list_roll(dice=dice, n=num)
+                return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                        ']=' + str(sum(r.current for r in rolls))
