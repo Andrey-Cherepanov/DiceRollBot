@@ -69,7 +69,7 @@ def parse_roll_command(message_text: str) -> str:
                     return 'bad request'
     else:
         num = int(re.match(r'\d+', message_text).group())
-        if not 'k' in message_text.lower():
+        if not re.search(r'[hlHL]', message_text):
             if not re.search(r'[+\-*/]', message_text):
                 rolls = list_roll(dice=dice, n=num)
                 return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
