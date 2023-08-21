@@ -101,3 +101,9 @@ def parse_roll_command(message_text: str) -> str:
                         rollsum = sum(r.current for r in rolls)
                         return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                                 ']=<b>' + str(round(rollsum / added)) + f'</b> ({rollsum}/{added})'
+        elif re.search(r'[hH]', message_text).group():
+            top = int(re.search(r'[hH](\d+)', message_text).group(1))
+            maximums, rolls = up_list_roll(dice, num, top)
+            if not any(c in message_text for c in '+-*/'):
+                return 'roll: [' + ','.join(str(r.current) for r in maximums) + ']' + f'=<b>{sum(r.current for r in maximums)}</b>' + \
+                        ' (' + ','.join(str(r.current) for r  in rolls) + ')'
