@@ -72,7 +72,7 @@ def parse_roll_command(message_text: str) -> str:
         if not re.search(r'[hlHL]', message_text):
             rolls = list_roll(dice=dice, n=num)
             if not re.search(r'[+\-*/]', message_text):
-                return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                         ']=' + str(sum(r.current for r in rolls))
             else:
                 sign = re.search(r'[+\-*/]', message_text).group()
@@ -80,20 +80,20 @@ def parse_roll_command(message_text: str) -> str:
                 match sign:
                     case '+':
                         rollsum = sum(r.current for r in rolls)
-                        return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                        return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                                 ']=<b>' + str(rollsum + added) + f'</b> ({rollsum}+{added})'
                     case '-':
                         rollsum = sum(r.current for r in rolls)
                         result = rollsum -added
                         if rollsum < added:
                             result=0
-                        return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                        return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                                 ']=<b>' + str(result) + f'</b> ({rollsum}-{added})'
                     case '*':
                         rollsum = sum(r.current for r in rolls)
-                        return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                        return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                                 ']=<b>' + str(rollsum * added) + f'</b> ({rollsum}*{added})'
                     case '/':
                         rollsum = sum(r.current for r in rolls)
-                        return 'roll: [' + ', '.join(f'{r.current}/{r.maximum}' for r in rolls) + \
+                        return 'roll: [' + ', '.join(f'{r.current}' for r in rolls) + \
                                 ']=<b>' + str(round(rollsum / added)) + f'</b> ({rollsum}/{added})'
