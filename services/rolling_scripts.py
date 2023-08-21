@@ -26,11 +26,15 @@ def list_roll(dice:int, n:int):
     return [Roll(maximum=dice) for _ in range(n)]
 
 def up_list_roll(dice:int, n:int, top:int=1):
+    if top > n:
+        top = n
     roll_list = list_roll(dice=dice, n=n)
     maximum = sorted(roll_list, key = lambda x: x.current, reverse=True)[:top]
     return list(maximum), roll_list
 
 def down_list_roll(dice:int, n:int, top:int=1):
+    if top > n:
+        top = n
     roll_list = list_roll(dice=dice, n=n)
     minimum = sorted(roll_list, key = lambda x: x.current)[:top]
     return minimum, roll_list
